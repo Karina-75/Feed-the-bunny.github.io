@@ -1,80 +1,29 @@
-const Engine = Matter.Engine;
-const Render = Matter.Render;
-const World = Matter.World;
-const Bodies = Matter.Bodies;
-const Constraint = Matter.Constraint;
-const Body = Matter.Body;
-const Composites = Matter.Composites;
-const Composite = Matter.Composite;
+var box;
+function setup() {
+  createCanvas(400, 400);
 
-let engine;
-let world;
-var ground;
-var fruit,rope;
-var fruit_con;
-
-var bg_img;
-var food;
-var rabbit;
-var bunny;
-var button
-
-
-function preload()
-{
-  bg_img = loadImage('background.png');
-  food = loadImage('melon.png');
-  rabbit = loadImage('Rabbit-01.png');
+  box = createSprite(150, 200, 15, 20);
 }
 
-function setup() 
-{
-  createCanvas(500,700);
-  frameRate(80);
-  engine = Engine.create();
-  world = engine.world;
-  ground = new Ground(200,680,600,20);
+function draw() {
+  background(30);
 
-  rope = new Rope(7,{x:245,y:30});
-  fruit = Bodies.circle(300,300,20);
-  Matter.Composite.add(rope.body,fruit);
+  if (keyIsDown(RIGHT_ARROW)) {
+    box.x = box.x + 5;
+  }
 
-  fruit_con = new Link(rope,fruit);
+  if (keyIsDown(LEFT_ARROW)) {
+    box.x = box.x - 5;
+  } 
 
-  rectMode(CENTER);
-  ellipseMode(RADIUS);
-  textSize(50)
-  imageMode(CENTER);
-  bunny = createSprite(250, 600, 100, 100);
-  bunny.addImage(rabbit)
-  bunny.scale = 0.3
-
-  button = createImg("cut_button.png");
-  button.position(220, 30);
-  button.size(50,50);
-  button.mouseClicked(drop)
-   
-}
-
-function draw() 
-{
-  background(51);
-
-  image(bg_img,width/2,height/2,490,690);
-
-  image(food,fruit.position.x,fruit.position.y,70,70);
-  rope.show();
-  Engine.update(engine);
-  ground.show();
-
+  if (keyIsDown(UP_ARROW)) {
+    box.y = box.y - 5;
+  } 
+  if (keyIsDown(DOWN_ARROW)) {
+    box.y = box.y + 5;
+  }
   drawSprites();
+}
 
 
- 
-   
-}
-function drop(){
-  console.log("buttonhasbeenclicked")
-  rope.break()
-  fruit_con.detache()
-}
+
